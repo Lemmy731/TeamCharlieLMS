@@ -1,0 +1,123 @@
+#  Talent Flow LMS Backend
+
+A scalable **Learning Management System (LMS) backend API** built with **Flask**, **SQLAlchemy**, and **JWT Authentication**, designed to support real-world project-based learning for interns at **Trueminds Innovations Ltd**.
+
+---
+
+##  Project Overview
+
+Talent Flow LMS is a centralized platform that enables:
+
+*  Access to structured learning content
+*  Tracking of learner progress
+*  Collaboration between interns and mentors
+* Assignment submission and feedback
+* Secure authentication and role-based access
+
+---
+
+##  Tech Stack
+
+* **Backend Framework:** Flask
+* **Database ORM:** SQLAlchemy
+* **Authentication:** Flask-JWT-Extended
+* **Migrations:** Flask-Migrate
+* **Environment Management:** python-dotenv
+* **Database:** SQLite (dev) / MySQL or PostgreSQL (production)
+
+---
+
+##  Project Structure
+
+```
+project/
+├── src/
+│   ├── api/
+│   │   ├── app.py
+│   │   ├── server.py
+│   │   └── routes/
+│   │       └── auth_routes.py
+│   ├── models/
+│   ├── services/
+│   ├── dao/
+│   └── extensions.py
+├── config/
+│   └── config.py
+├── tests/
+├── .env
+├── .gitignore
+├── requirements.txt
+└── README.md
+```
+
+---
+
+##  Setup Instructions
+
+###  Clone the Repository
+
+```
+git clone https://github.com/your-username/talent-flow-lms.git
+cd talent-flow-lms
+```
+
+---
+
+###  Create Virtual Environment
+
+```
+python -m venv venv
+```
+
+Activate:
+
+* Windows:
+
+```
+venv\Scripts\activate
+```
+
+* Mac/Linux:
+
+```
+source venv/bin/activate
+```
+
+---
+
+###  Install Dependencies
+
+```
+pip install -r requirements.txt
+```
+
+---
+
+###  Setup Environment Variables
+
+Create a `.env` file in the root:
+
+```
+SECRET_KEY=your_secret_key
+JWT_SECRET_KEY=your_jwt_secret
+DATABASE_URL=sqlite:///lms.db
+```
+
+---
+
+###  Run Database Migrations
+
+```
+flask db init
+flask db migrate -m "Initial migration"
+flask db upgrade
+```
+
+---
+
+###  Run the Application
+
+```
+python src/app/api python server.py
+```
+
