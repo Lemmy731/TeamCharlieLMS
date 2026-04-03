@@ -3,6 +3,7 @@ from src.app.extensions import db, migrate, jwt
 from config.config import DevelopmentConfig, ProductionConfig
 from src.app.api.routes.course_routes.course import course_bp
 from src.app.api.routes.enroll_routes.enrollment import enroll_bp
+from src.app.api.routes.auth_routes.auth import auth_bp
 from src.models import user, course, enrollment
 import os
 
@@ -22,4 +23,5 @@ def create_app():
     #register routes
     app.register_blueprint(course_bp, url_prefix="/api/course")
     app.register_blueprint(enroll_bp, url_prefix="/api/enroll")
+    app.register_blueprint(auth_bp, url_prefix="/api/auth")
     return app

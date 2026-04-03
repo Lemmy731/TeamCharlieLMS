@@ -1,5 +1,5 @@
 from src.models.enrollment import Enrollment
-from src.dataaccess.enrollment import EnrollData
+from src.dataaccess.enrollmentdataaccess.enrollment import EnrollData
 
 class EnrollmentService:
     def __init__(self):
