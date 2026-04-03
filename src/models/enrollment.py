@@ -12,3 +12,8 @@ class Enrollment(db.Model):
         "Course",
         back_populates="enrollments"
     )
+
+    def to_dict(self):
+        return{
+            "id":self.id,
+        }

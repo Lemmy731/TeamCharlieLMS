@@ -1,5 +1,5 @@
 from src.models.course import Course
-from src.dataaccess.course import CourseData
+from src.dataaccess.coursedataaccess.course import CourseData
 
 class CourseService:
     def __init__(self):

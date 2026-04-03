@@ -11,3 +11,12 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
 
     enrollments = db.relationship("Enrollment", backref="user", lazy=True)
+
+    def to_dict(self):
+        return{
+            "id":self.id,
+            "first_name":self.first_name,
+            "last_name":self.last_name,
+            "email":self.email,
+            "created_at":self.created_at
+        }
