@@ -14,7 +14,7 @@ class AuthService:
         first_name = data['first_name'],
         last_name  = data['last_name'],
         email = data['email'],
-        password = data['password']
+        password = data['password'],   
     )
         response = self.auth_data.signup(user)
         return (response)
@@ -26,14 +26,15 @@ class AuthService:
     )
         response = self.auth_data.login(login_dto)
         if response != "invalid credential":
-            access_token = create_access_token(identity=response.email)
-            refresh_token = create_refresh_token(identity=response.email)
+            roles = [role.name for role in response.roles]
+            access_token = create_access_token(identity=str(response.id), additional_claims={"role":roles})
+            refresh_token = create_refresh_token(identity=str(response.id), additional_claims={"role":roles})
             resp = jsonify({'login': True})
             set_access_cookies(resp, access_token)
             set_refresh_cookies(resp, refresh_token)
             return resp, 200
         
-    def refresh():
+    def refresh(self):
         current_user = get_jwt_identity()
         access_token = create_access_token(identity=current_user)
         resp = jsonify({'refresh': True})

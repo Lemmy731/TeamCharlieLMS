@@ -11,6 +11,7 @@ def Enroll():
     try:
         data = request.get_json()
         response = enroll_service.enroll_user(data)
-        return jsonify(response),200
+        return (response)
     except Exception as e:
         return ({"error": str(e)}),400
+
