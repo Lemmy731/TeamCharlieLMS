@@ -29,3 +29,16 @@ class AuthData:
         if not user or not bcrypt.check_password_hash(user.password, data.password):
             return "invalid credential"
         return user
+    
+    def get_current_user(self, user_id):
+        user = User.query.get(int(user_id))
+        if not user:
+            return {"message": "User not found"}, 404
+        return jsonify({
+            "id": user.id,
+            "email": user.email,
+            "last_name":user.last_name,
+            "first_name":user.first_name
+        }, user_id), 200
+
+    

@@ -39,3 +39,12 @@ def logout():
     resp = jsonify({'logout': True})
     unset_jwt_cookies(resp)
     return resp, 200
+
+@auth_bp.route('/login_user', methods=['POST'])
+@jwt_required("admin")
+def get_current_user():
+    try:
+        response = auth_service.get_current_user()
+        return response
+    except Exception as e:
+        return jsonify({"error":str(e)}),400

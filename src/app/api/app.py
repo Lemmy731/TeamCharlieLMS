@@ -24,7 +24,7 @@ def create_app():
     with app.app_context():
         seeder = SeedService()
         # seeder.seed_role()
-        seeder.seed_admin()
+        # seeder.seed_admin()
 
     #register routes
     app.register_blueprint(course_bp, url_prefix="/api/course")

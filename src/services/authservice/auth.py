@@ -41,4 +41,8 @@ class AuthService:
         set_access_cookies(resp, access_token)
         return resp, 200
     
-   
+    def get_current_user(self):
+        user_id = get_jwt_identity()
+        response = self.auth_data.get_current_user(user_id)
+        return response
+      
