@@ -18,7 +18,7 @@ def create_course():
 
 
 @course_bp.route('/', methods=['Get'])
-@roles_required("learner")
+@roles_required("learner","admin")
 def get_all_courses():
     try:
         courses = course_service.get_all_courses()
@@ -37,7 +37,7 @@ def get_course_by_course_id(id):
         return jsonify({"error":str(e)}),400
 
 @course_bp.route('/<int:id>', methods=['Get'])
-@roles_required(["instructor"])
+@roles_required(["instructor","admin"])
 def get_courses_by_user_id(id):
     try:
         course = course_service.get_course_by_id(id)
