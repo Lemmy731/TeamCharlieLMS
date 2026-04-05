@@ -2,6 +2,7 @@ from src.app.extensions import db
 from src.models.user import User
 from flask_bcrypt import Bcrypt
 from flask import jsonify
+from src.models.role import Role
 
 bcrypt = Bcrypt()
 
@@ -14,6 +15,11 @@ class AuthData:
             return({"message":"user already exist"}),400
         hash_password = bcrypt.generate_password_hash(password).decode('utf-8')
         data.password = hash_password
+
+        learner_role = Role.query.filter_by(name="learner").first()
+        if not learner_role:
+            raise Exception("Role  not found.", learner_role)
+        data.roles.append(learner_role)
         db.session.add(data)
         db.session.commit()
         return jsonify({"message":"user created"}),201

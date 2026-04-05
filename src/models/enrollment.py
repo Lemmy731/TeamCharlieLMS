@@ -6,6 +6,8 @@ class Enrollment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(120), db.ForeignKey("users.id"))
     course_id = db.Column(db.String(120), db.ForeignKey("courses.id"))
+    status = db.Column(db.String(120))
+    name = db.Column(db.String(120))
     created_at = db.Column(db.DateTime, default=datetime.now)
 
     course = db.relationship(
@@ -14,6 +16,7 @@ class Enrollment(db.Model):
     )
 
     def to_dict(self):
-        return{
-            "id":self.id,
-        }
+        return {
+            "course_id":self.course_id,
+            "name":self.name
+            }

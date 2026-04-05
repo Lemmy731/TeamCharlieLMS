@@ -25,7 +25,7 @@ def login():
     except Exception as e:
         return jsonify({"error":str(e)}),400
     
-@auth_bp.route('/token/refresh', methods=['POST'])
+@auth_bp.route('/refresh', methods=['POST'])
 @jwt_required
 def refresh():
     try:
@@ -34,7 +34,7 @@ def refresh():
     except Exception as e:
         return jsonify({"error": str(e)}),400 
 
-@auth_bp.route('/token/remove', methods=['POST'])
+@auth_bp.route('/logout', methods=['POST'])
 def logout():
     resp = jsonify({'logout': True})
     unset_jwt_cookies(resp)
