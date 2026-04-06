@@ -7,7 +7,7 @@ course_bp = Blueprint('courses', __name__)
 course_service = CourseService()
 
 @course_bp.route('/', methods=['Post'])
-@roles_required("admin")
+@roles_required("admin","instructor")
 def create_course():
     try:
         data = request.get_json()
@@ -28,7 +28,7 @@ def get_all_courses():
 
 
 @course_bp.route('/<int:id>', methods=['Get'])
-@roles_required("instructor")
+@roles_required("instructor","learner")
 def get_course_by_course_id(id):
     try:
         course = course_service.get_course_by_id(id)
@@ -37,7 +37,7 @@ def get_course_by_course_id(id):
         return jsonify({"error":str(e)}),400
 
 @course_bp.route('/<int:id>', methods=['Get'])
-@roles_required(["instructor","admin"])
+@roles_required("instructor","admin")
 def get_courses_by_user_id(id):
     try:
         course = course_service.get_course_by_id(id)

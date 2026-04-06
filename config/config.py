@@ -11,6 +11,7 @@ class Config:
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
     JWT_TOKEN_LOCATION = ["cookies"]
+    # JWT_TOKEN_LOCATION = ["headers"]
     JWT_COOKIE_SECURE = False
     JWT_ACCESS_COOKIE_PATH = "/api/"
     JWT_REFRESH_COOKIE_PATH = '/token/refresh'
@@ -19,9 +20,11 @@ class Config:
 
     GOOGLE_CLIENT_ID=os.getenv('GOOGLE_CLIENT_ID')
     GOOGLE_CLIENT_SECRET=os.getenv('GOOGLE_CLIENT_SECRET')
-    AUTHORIZATION_BASE_URL=os.getenv('AUTHORIZATION_BASE_URL')
-    TOKEN_URL=os.getenv('TOKEN_URL')
-    REDIRECT_URI=os.getenv('REDIRECT_URI')
+    GOOGLE_DISCOVERY_URL=os.getenv('GOOGLE_DISCOVERY_URL')
+    GOOGLE_REDIRECT_URI=os.getenv('GOOGLE_REDIRECT_URI')
+    # AUTHORIZATION_BASE_URL=os.getenv('AUTHORIZATION_BASE_URL')
+    # TOKEN_URL=os.getenv('TOKEN_URL')
+    # REDIRECT_URI=os.getenv('REDIRECT_URI')
 
     
 

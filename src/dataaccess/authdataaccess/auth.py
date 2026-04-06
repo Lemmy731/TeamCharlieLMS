@@ -29,16 +29,34 @@ class AuthData:
         if not user or not bcrypt.check_password_hash(user.password, data.password):
             return "invalid credential"
         return user
+
+    def google_callback(self, email,name):
+        check_user = User.query.filter_by(email=email).first()
+        if not check_user:
+             user = User(
+                  email=email,
+                  first_name=name,
+                  provider="google"
+                  )
+             learner_role = Role.query.filter_by(name="learner").first()
+             if not learner_role:
+                 raise Exception("Role  not found.")
+             if learner_role not in user.roles:
+                 user.roles.append(learner_role)
+             db.session.add(user)
+             db.session.commit()
+             return user
+        return check_user
     
     def get_current_user(self, user_id):
         user = User.query.get(int(user_id))
         if not user:
             return {"message": "User not found"}, 404
         return jsonify({
-            "id": user.id,
+             "id": user.id,
             "email": user.email,
-            "last_name":user.last_name,
-            "first_name":user.first_name
-        }, user_id), 200
+            "first_name":user.last_name,
+            "roles": [role.name for role in user.roles]
+        }), 200
 
     
