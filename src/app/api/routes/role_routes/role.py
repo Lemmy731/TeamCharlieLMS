@@ -5,7 +5,7 @@ from src.services.roleservice.admin_assign_role import AssignRoleService
 role_bp = Blueprint("role", __name__)
 role_service = AssignRoleService()
 
-@role_bp.route('/', methods=['Post'])
+@role_bp.route('/', methods=['POST'])
 @roles_required("admin")
 def assign_role():
     try:

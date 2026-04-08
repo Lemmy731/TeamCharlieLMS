@@ -5,7 +5,7 @@ from flask_jwt_extended import jwt_required
 enroll_bp = Blueprint("enroll", __name__)
 enroll_service = EnrollmentService()
 
-@enroll_bp.route('/', methods=['Post'])
+@enroll_bp.route('/', methods=['POST'])
 @jwt_required()
 def Enroll():
     try:
