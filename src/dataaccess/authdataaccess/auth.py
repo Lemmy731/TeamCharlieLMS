@@ -3,6 +3,8 @@ from src.models.user import User
 from flask_bcrypt import Bcrypt
 from flask import jsonify
 from src.models.role import Role
+#from werkzeug.security import generate_password_hash, check_password_hash
+
 
 bcrypt = Bcrypt()
 
@@ -29,6 +31,22 @@ class AuthData:
         if not user or not bcrypt.check_password_hash(user.password, data.password):
             return "invalid credential"
         return user
+    
+    def forgot_password(self, email):
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            return False
+        return True
+    
+    def reset_password(self, new_password, email):
+        hashed_password = bcrypt.generate_password_hash(new_password)
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            return False
+        user.password = hashed_password
+        db.session.add(user)
+        db.session.commit()
+        return True
 
     def google_callback(self, email,name):
         check_user = User.query.filter_by(email=email).first()

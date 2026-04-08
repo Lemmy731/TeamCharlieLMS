@@ -6,7 +6,7 @@ from src.utility.role_decorator import roles_required
 course_bp = Blueprint('courses', __name__)
 course_service = CourseService()
 
-@course_bp.route('/', methods=['Post'])
+@course_bp.route('/', methods=['POST'])
 @roles_required("admin","instructor")
 def create_course():
     try:
@@ -17,8 +17,8 @@ def create_course():
         return jsonify({"error":str(e)}),400
 
 
-@course_bp.route('/', methods=['Get'])
-@roles_required("learner","admin")
+@course_bp.route('/', methods=['GET'])
+@roles_required()
 def get_all_courses():
     try:
         courses = course_service.get_all_courses()
@@ -27,8 +27,8 @@ def get_all_courses():
         return jsonify({"error":str(e)}),400
 
 
-@course_bp.route('/<int:id>', methods=['Get'])
-@roles_required("instructor","learner")
+@course_bp.route('/<int:id>', methods=['GET'])
+@roles_required()
 def get_course_by_course_id(id):
     try:
         course = course_service.get_course_by_id(id)
@@ -36,7 +36,7 @@ def get_course_by_course_id(id):
     except Exception as e:
         return jsonify({"error":str(e)}),400
 
-@course_bp.route('/<int:id>', methods=['Get'])
+@course_bp.route('/<int:id>', methods=['GET'])
 @roles_required("instructor","admin")
 def get_courses_by_user_id(id):
     try:

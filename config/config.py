@@ -22,6 +22,20 @@ class Config:
     GOOGLE_CLIENT_SECRET=os.getenv('GOOGLE_CLIENT_SECRET')
     GOOGLE_DISCOVERY_URL=os.getenv('GOOGLE_DISCOVERY_URL')
     GOOGLE_REDIRECT_URI=os.getenv('GOOGLE_REDIRECT_URI')
+
+    SECRET_KEY=os.getenv('SECRET_KEY')
+    # Mail Config
+    MAIL_SERVER = os.getenv('MAIL_SERVER')
+    MAIL_PORT = os.getenv('MAIL_PORT', 587)
+    MAIL_USE_TLS = os.getenv('MAIL_USE_TLS', 'True') == 'True'
+    MAIL_USE_SSL = os.getenv('MAIL_USE_SSL', 'False') == 'True'
+    # MAIL_USE_TLS = os.getenv('MAIL_USE_TLS', 'False') == 'True'
+    # MAIL_USE_SSL = os.getenv('MAIL_USE_SSL', 'True') == 'True'
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME')
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD') 
+    MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER')
+    MAIL_DEBUG = True
+
     # AUTHORIZATION_BASE_URL=os.getenv('AUTHORIZATION_BASE_URL')
     # TOKEN_URL=os.getenv('TOKEN_URL')
     # REDIRECT_URI=os.getenv('REDIRECT_URI')
