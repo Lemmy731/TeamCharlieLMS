@@ -1,9 +1,13 @@
 from src.dataaccess.authdataaccess.auth import AuthData
 import requests
-from flask import jsonify
+from flask import jsonify, url_for
 from src.models.user import User
 from config.config import Config
 from flask_jwt_extended import create_access_token
+from src.app.extensions import mail
+from src.utility.generate_reset_token import generate_reset_token
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_mail import Mail, Message
 from flask_jwt_extended import (create_access_token,create_refresh_token,get_jwt_identity, set_access_cookies,set_refresh_cookies
 )
 
@@ -36,7 +40,25 @@ class AuthService:
             set_access_cookies(resp, access_token)
             set_refresh_cookies(resp, refresh_token)
             return resp, 200
-        return "invalid credential"
+        return "invalid credential"\
+        
+    def forgot_password(self, email):
+        if not email:
+            return('Please enter your email address')
+        response = self.auth_data.forgot_password(email)
+        if not response:
+            return ("no user found for this email")
+        return email
+       
+
+    def reset_password(self, new_password, confirm_password, email):
+        if new_password != confirm_password:
+             return('Passwords do not match')
+        response = self.auth_data.reset_password(new_password, email)
+        if response:
+            return ("password updated successfully")
+        return ("no user found")
+
         
     def google_login(self):
         google_provider_cfg = requests.get(Config.GOOGLE_DISCOVERY_URL).json()
