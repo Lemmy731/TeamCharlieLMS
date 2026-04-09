@@ -7,8 +7,10 @@ __pycache__/
 venv/
 
 .venv/
+env/
 
 # Environment variables
+.env
 
 # Distribution / packaging
 *.egg
@@ -44,6 +46,7 @@ instance/
 *.sqlite3
 
 # dotenv environment variables
+env/
 
 # IDEs and editors
 .vscode/
