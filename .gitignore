@@ -44,8 +44,6 @@ instance/
 *.sqlite3
 
 # dotenv environment variables
-.env
-.env.*
 
 # IDEs and editors
 .vscode/
