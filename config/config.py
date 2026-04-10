@@ -4,9 +4,19 @@ import os
 
 load_dotenv()
 
+BASE_DIR = os.getcwd()
+
 class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # SQLALCHEMY_ENGINE_OPTIONS = {}
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "connect_args": {
+            "ssl": {
+                "ca": os.path.join(BASE_DIR, "src", "ca.pem")
+            }
+        }
+    }
 
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
@@ -35,12 +45,6 @@ class Config:
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD') 
     MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER')
     MAIL_DEBUG = True
-
-    # AUTHORIZATION_BASE_URL=os.getenv('AUTHORIZATION_BASE_URL')
-    # TOKEN_URL=os.getenv('TOKEN_URL')
-    # REDIRECT_URI=os.getenv('REDIRECT_URI')
-
-    
 
 class DevelopmentConfig(Config):
     DEBUG = True

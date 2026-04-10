@@ -6,33 +6,45 @@ from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
 
 class SeedData:
+
     def seed_role(self):
         roles = ["learner", "instructor", "admin"]
-        for role in roles:
-            if not Role.query.filter_by(name=role).first():
-                db.session.add(Role(name=role))
-                db.session.commit()
-    print("Roles seeded successfully")
+
+        for role_name in roles:
+            existing_role = Role.query.filter_by(name=role_name).first()
+
+            if not existing_role:
+                db.session.add(Role(name=role_name))
+
+        db.session.commit()
+        print("Roles seeded successfully")
 
     def seed_admin(self):
-        user = User(
-            first_name = "admin",
-            last_name = "admin",
-            email = "admin@yopmail.com",
-            password = "Admin@12345"
-        )
-        if User.query.filter_by(email=user.email).first():
-            return("admin already exist")
-        hash_password = bcrypt.generate_password_hash(user.password).decode('utf-8')
-        user.password = hash_password
+        email = "admin@yopmail.com"
+
+        # check if admin exists FIRST
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            print("Admin already exists")
+            return
+
         admin_role = Role.query.filter_by(name="admin").first()
         if not admin_role:
-            return "role not found"
+            print("Role not found")
+            return
+
+        hashed_password = bcrypt.generate_password_hash("Admin@12345").decode("utf-8")
+
+        user = User(
+            first_name="admin",
+            last_name="admin",
+            email=email,
+            password=hashed_password
+        )
+
         user.roles.append(admin_role)
+
         db.session.add(user)
         db.session.commit()
 
-
-
-    
-    
+        print("Admin created successfully")

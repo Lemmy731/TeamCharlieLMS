@@ -7,13 +7,14 @@ class CourseService:
 
     def create_course(self, data):
         new_course = Course(
-            title = data['title'],
-            price = data['price'],
-            description = data['description'],
-            image_thumbnail = data['image_thumbnail'],
-            duration = data['duration'],
-            lessons_count = data['lessons_count'],
-            rating = data['rating'])
+            title=data['title'],
+            price=float(data['price']),
+            description=data['description'],
+            image_thumbnail=data['image_thumbnail'],
+            duration=int(data['duration']),
+            lessons_count=int(data['lessons_count']),
+            rating=float(data.get('rating', 0))
+        )
         response = self.course_datalayer.create_course(new_course)
         return response
     
